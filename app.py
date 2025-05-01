@@ -75,7 +75,7 @@ def render_item(performance: dict) -> None:
     )
     st.write(f"")
     st.write(
-        " , ".join([f":primary-background[{i}]" for i in performance.get("dancers")])
+        "  ".join([f":primary-background[{i}]" for i in performance.get("dancers")])
     )
 
 
