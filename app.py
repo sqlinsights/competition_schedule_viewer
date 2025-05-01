@@ -18,6 +18,8 @@ def get_awards() -> dict:
         return json.loads(sch.read())
 
 
+if current_dancer := st.query_params.get("dancer"):
+    st.session_state["dancer"] = current_dancer
 schedule_data = get_schedule()
 awards_schedule = get_awards()
 
@@ -26,6 +28,13 @@ dancer_names = []
 dancers = [dancer_names.extend(i.get("dancers")) for i in schedule_data]
 
 dancer_names = sorted([i for i in set(dancer_names) if i != "Production"])
+
+
+def set_qp():
+    if st.session_state["dancer"]:
+        st.query_params["dancer"] = st.session_state["dancer"]
+    else:
+        del st.query_params["dancer"]
 
 
 def render_item(performance: dict) -> None:
@@ -49,8 +58,10 @@ def render_item(performance: dict) -> None:
     st.write(" , ".join([f":blue-background[{i}]" for i in performance.get("dancers")]))
 
 
-dancer = st.selectbox("Choose a Dancer", options=dancer_names, index=None)
-options = st.pills(
+dancer = st.selectbox(
+    "Choose a Dancer", options=dancer_names, key="dancer", on_change=set_qp
+)
+options = st.segmented_control(
     "",
     label_visibility="collapsed",
     options=["Include Production", "Show Awards"],
