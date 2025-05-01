@@ -105,7 +105,7 @@ if dancer:
                 [i for i in schedule_data if "Production" in i.get("dancers")]
             )
         filtered_data = sorted(filtered_data, key=lambda x: x.get("id"))
-        dates = [i for i in set([i.get("date") for i in filtered_data])]
+        dates = sorted([i for i in set([i.get("date") for i in filtered_data])])
         for d in dates:
             date_based = [i for i in filtered_data if i.get("date") == d]
             perf_date = datetime.strptime(d, date_format).date().strftime("%B %d, %Y")
