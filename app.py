@@ -84,7 +84,7 @@ def render_item(performance: dict) -> None:
 dancer = st.selectbox(
     "Choose a Dancer", options=dancer_names, key="dancer", on_change=set_qp, index=None
 )
-options = st.segmented_control(
+options = st.pills(
     "",
     label_visibility="collapsed",
     options=["Include Production", "Include Large Group Hip Hop", "Show Awards"],
