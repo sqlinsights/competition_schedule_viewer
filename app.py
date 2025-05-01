@@ -2,6 +2,8 @@ import streamlit as st
 import json
 from datetime import datetime
 
+st.title("Adredaline Schedule")
+
 time_format = "%H:%M"
 date_format = "%Y-%m-%d"
 
