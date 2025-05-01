@@ -61,7 +61,7 @@ def render_item(performance: dict) -> None:
         f""":material/genres: {performance.get("name")}""",
         anchor=False,
     )
-    st.badge(str(performance.get("id")), color="blue", icon=":material/numbers:")
+    st.badge(str(performance.get("id")), color="primary", icon=":material/numbers:")
     arrival_time = datetime.strptime(
         performance.get("arrival_time"), time_format
     ).strftime("%I:%M %p")
@@ -74,7 +74,9 @@ def render_item(performance: dict) -> None:
         f""":material/check: {arrival_time} |  :material/schedule: {performance_time}"""
     )
     st.write(f"")
-    st.write(" , ".join([f":blue-background[{i}]" for i in performance.get("dancers")]))
+    st.write(
+        " , ".join([f":primary-background[{i}]" for i in performance.get("dancers")])
+    )
 
 
 dancer = st.selectbox(
@@ -107,7 +109,7 @@ if dancer:
         for d in dates:
             date_based = [i for i in filtered_data if i.get("date") == d]
             perf_date = datetime.strptime(d, date_format).date().strftime("%B %d, %Y")
-            st.header(perf_date, anchor=False, divider=True)
+            st.header(perf_date, anchor=False, divider="grey")
             for performance in date_based:
                 with st.container(border=True):
                     render_item(performance=performance)
@@ -119,7 +121,7 @@ if dancer:
                 award_date = (
                     datetime.strptime(a_date, date_format).date().strftime("%B %d, %Y")
                 )
-                st.header(award_date, anchor=False, divider=True)
+                st.header(award_date, anchor=False, divider="grey")
                 for award in a_date_set:
                     st.subheader(award.get("name"), anchor=False)
                     st.badge(
@@ -127,7 +129,7 @@ if dancer:
                             "%I:%M %p"
                         ),
                         icon=":material/schedule:",
-                        color="blue",
+                        color="primary",
                     )
 else:
     st.info("Select Dancer to Continue...")
