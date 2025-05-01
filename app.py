@@ -23,6 +23,13 @@ def get_awards() -> dict:
 
 if current_dancer := st.query_params.get("dancer"):
     st.session_state["dancer"] = current_dancer
+qry_opt = []
+if "Show Awards" in st.query_params:
+    qry_opt.append("Show Awards")
+if "Include Production" in st.query_params:
+    qry_opt.append("Include Production")
+if qry_opt:
+    st.session_state["options"] = qry_opt
 schedule_data = get_schedule()
 awards_schedule = get_awards()
 
@@ -37,7 +44,16 @@ def set_qp():
     if st.session_state["dancer"]:
         st.query_params["dancer"] = st.session_state["dancer"]
     else:
-        del st.query_params["dancer"]
+        if "dancer" in st.query_params:
+            del st.query_params["dancer"]
+
+    options = ["Include Production", "Show Awards"]
+    for i in options:
+        if i in st.session_state["options"]:
+            st.query_params[i] = True
+        else:
+            if i in st.query_params:
+                del st.query_params[i]
 
 
 def render_item(performance: dict) -> None:
@@ -69,6 +85,8 @@ options = st.segmented_control(
     label_visibility="collapsed",
     options=["Include Production", "Show Awards"],
     selection_mode="multi",
+    key="options",
+    on_change=set_qp,
 )
 
 
