@@ -28,6 +28,8 @@ if "Show Awards" in st.query_params:
     qry_opt.append("Show Awards")
 if "Include Production" in st.query_params:
     qry_opt.append("Include Production")
+if "Include Large Group Hip Hop" in st.query_params:
+    qry_opt.append("Include Large Group Hip Hop")
 if qry_opt:
     st.session_state["options"] = qry_opt
 schedule_data = get_schedule()
@@ -47,7 +49,7 @@ def set_qp():
         if "dancer" in st.query_params:
             del st.query_params["dancer"]
 
-    options = ["Include Production", "Show Awards"]
+    options = ["Include Production", "Include Large Group Hip Hop", "Show Awards"]
     for i in options:
         if i in st.session_state["options"]:
             st.query_params[i] = True
@@ -85,7 +87,7 @@ dancer = st.selectbox(
 options = st.segmented_control(
     "",
     label_visibility="collapsed",
-    options=["Include Production", "Show Awards"],
+    options=["Include Production", "Include Large Group Hip Hop", "Show Awards"],
     selection_mode="multi",
     key="options",
     on_change=set_qp,
@@ -103,6 +105,10 @@ if dancer:
         if "Include Production" in options:
             filtered_data.extend(
                 [i for i in schedule_data if "Production" in i.get("dancers")]
+            )
+        if "Include Large Group Hip Hop" in options:
+            filtered_data.extend(
+                [i for i in schedule_data if "Large Group Hip Hop" in i.get("dancers")]
             )
         filtered_data = sorted(filtered_data, key=lambda x: x.get("id"))
         dates = sorted([i for i in set([i.get("date") for i in filtered_data])])

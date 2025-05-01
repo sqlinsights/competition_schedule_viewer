@@ -284,5 +284,14 @@
             "Hayden",
             "Emery"
         ]
+    },
+    {
+        "id": 425,
+        "name": "Out",
+        "arrival_time": "21:15",
+        "performance_time": "21:56",
+        "date": "2025-05-03",
+        "dancers": ["Large Group Hip Hop"
+        ]
     }
 ]
