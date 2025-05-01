@@ -2,7 +2,8 @@ import streamlit as st
 import json
 from datetime import datetime
 
-st.title("Adredaline Schedule")
+st.set_page_config(page_icon=":material/genres:", page_title="Competition Schedule")
+st.title("Competition Schedule")
 
 time_format = "%H:%M"
 date_format = "%Y-%m-%d"
