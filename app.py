@@ -59,7 +59,7 @@ def render_item(performance: dict) -> None:
 
 
 dancer = st.selectbox(
-    "Choose a Dancer", options=dancer_names, key="dancer", on_change=set_qp
+    "Choose a Dancer", options=dancer_names, key="dancer", on_change=set_qp, index=None
 )
 options = st.segmented_control(
     "",
